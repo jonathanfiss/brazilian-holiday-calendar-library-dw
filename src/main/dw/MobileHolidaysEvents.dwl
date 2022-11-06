@@ -1,5 +1,39 @@
 %dw 2.0
 
+/**
+* Converts informed year to Easter date. Uses the Algorithm Meeus/Jones/Butcher
+*
+* === Parameters
+*
+* [%header, cols="1,1,3"]
+* |===
+* | Name | Type | Description
+* | `date` | Date | Used only the year to calculate the day and month of Easter
+* |===
+*
+* === Example
+*
+* return Date of Easter
+*
+* ==== Source
+*
+* [source,DataWeave,linenums]
+* ----
+* %dw 2.0
+* output application/java
+* import yearToEasterDate from MobileHolidaysEvents
+* ---
+*  yearToEasterDate("2023-11-07" as Date)
+* ----
+*
+* ==== Output
+*
+* [source,String,linenums]
+* ----
+* "2023-04-09"
+* ----
+*
+*/
 fun yearToEasterDate(date: Date): Date = do {
   var year = (date as String {format: "yyyy"}) as Number
   var a = year mod 19
@@ -21,8 +55,110 @@ fun yearToEasterDate(date: Date): Date = do {
   response as Date
 }
 
+/**
+* Converts informed year to Carnival date
+*
+* === Parameters
+*
+* [%header, cols="1,1,3"]
+* |===
+* | Name | Type | Description
+* | `date` | Date | Used only the year to calculate the day and month of Carnival
+* |===
+*
+* === Example
+*
+* return Date of Carnival.
+*
+* ==== Source
+*
+* [source,DataWeave,linenums]
+* ----
+* %dw 2.0
+* output application/java
+* import yearToCarnivalDate from MobileHolidaysEvents
+* ---
+* yearToCarnivalDate("2023-02-17" as Date)
+* ----
+*
+* ==== Output
+*
+* [source,String,linenums]
+* ----
+* "2023-02-21"
+* ----
+*
+*/
 fun yearToCarnivalDate(date: Date): Date = yearToEasterDate(date) - |P47D|
 
+/**
+* Converts informed year to Good Friday date 
+*
+* === Parameters
+*
+* [%header, cols="1,1,3"]
+* |===
+* | Name | Type | Description
+* | `date` | Date | Used only the year to calculate the day and month of Good Friday
+* |===
+*
+* === Example
+*
+* return Date of Good Friday.
+*
+* ==== Source
+*
+* [source,DataWeave,linenums]
+* ----
+* %dw 2.0
+* output application/json
+* import yearToGoodFridayDate from MobileHolidaysEvents
+* ---
+* yearToGoodFridayDate("2023-02-17" as Date)
+* ----
+*
+* ==== Output
+*
+* [source,String,linenums]
+* ----
+* "2023-04-07"
+* ----
+*
+*/
 fun yearToGoodFridayDate(date: Date): Date = yearToEasterDate(date) - |P2D|
 
+/**
+* Converts informed year to Corpus Christi date
+*
+* === Parameters
+*
+* [%header, cols="1,1,3"]
+* |===
+* | Name | Type | Description
+* | `date` | Date | Used only the year to calculate the day and month of Corpus Christi
+* |===
+*
+* === Example
+*
+* return Date of Corpus Christi 
+*
+* ==== Source
+*
+* [source,DataWeave,linenums]
+* ----
+* %dw 2.0
+* output application/java
+* import yearToCorpusChristiDate from MobileHolidaysEvents
+* ---
+* yearToCorpusChristiDate("2023-02-17" as Date)
+* ----
+*
+* ==== Output
+*
+* [source,String,linenums]
+* ----
+* "2023-06-08"
+* ----
+*
+*/
 fun yearToCorpusChristiDate(date: Date): Date = yearToEasterDate(date) + |P60D|
